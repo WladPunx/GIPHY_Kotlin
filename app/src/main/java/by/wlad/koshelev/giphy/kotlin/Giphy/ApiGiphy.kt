@@ -15,6 +15,7 @@ interface ApiGiphy {
 
     @GET("trending")
     suspend fun getTrending(
+        @Query("limit") limit: Int = 5,
         @Query("api_key") key: String = apiKey
     ): GiphyApiTrending
 

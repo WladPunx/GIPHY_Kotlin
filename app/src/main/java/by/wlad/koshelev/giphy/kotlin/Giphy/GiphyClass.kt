@@ -50,19 +50,23 @@ data class GiphyClass(
 //    var user: User,
 //    @SerializedName("username")
 //    var username: String
-)
+) {
+    fun inz() {
+        this.myUrl = "https://i.giphy.com/media/${this.id}/giphy.gif"
+    }
+}
 
 @Dao
 interface GiphiDAO {
 
-    @Query("delete from gyphi_table")
-    suspend fun deleteAll()
-
     @Insert
     suspend fun addGif(gif: GiphyClass)
 
-    @Query("select * from gyphi_table")
-    suspend fun getAll(): MutableList<GiphyClass>
+    @Delete
+    suspend fun deleteGif(gif: GiphyClass)
+
+    @Query("select * from gyphi_table where id like :id ")
+    suspend fun findGif(id: String): MutableList<GiphyClass>
 
 }
 
