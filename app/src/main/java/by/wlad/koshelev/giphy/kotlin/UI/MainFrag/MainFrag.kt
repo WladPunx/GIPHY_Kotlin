@@ -1,7 +1,6 @@
 package by.wlad.koshelev.giphy.kotlin.UI.MainFrag
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,11 +33,17 @@ class MainFrag : Fragment() {
          * ПОПУЛЯРНЫЙ слушатель
          */
         VM.vm.tredList.observe(viewLifecycleOwner, Observer {
-            Log.e("!!!", "${it}")
-            if (it.size != 0) {
-                tredRecycler.layoutManager = GridLayoutManager(activity, 3)
-                tredRecycler.adapter = GifAdapter(activity as AppCompatActivity, it)
-            }
+            tredRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 3)
+            tredRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
+        })
+
+
+        /**
+         * ЛЮБИМЫЕ гифки
+         */
+        VM.vm.likeList.observe(viewLifecycleOwner, Observer {
+            likeRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 3)
+            likeRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
         })
 
     }

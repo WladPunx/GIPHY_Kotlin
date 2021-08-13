@@ -30,15 +30,15 @@ class Repository {
     /**
      * есть ли эта ГИФка в БД? возвращает БУЛЕАНТ!!
      */
-    suspend fun findGif(id: String): Boolean = withContext(Dispatchers.IO) {
-        localModel.findGif(id)
+    suspend fun isHaveGif(id: String): Boolean = withContext(Dispatchers.IO) {
+        localModel.isHaveGif(id)
     }
 
     /**
      * добавить гиф в БД
      */
-    suspend fun addGif(gif: GiphyClass) = withContext(Dispatchers.IO) {
-        localModel.addGif(gif)
+    suspend fun saveGif(gif: GiphyClass) = withContext(Dispatchers.IO) {
+        localModel.saveGif(gif)
     }
 
     /**
@@ -46,5 +46,40 @@ class Repository {
      */
     suspend fun deleteGif(gif: GiphyClass) = withContext(Dispatchers.IO) {
         localModel.deleteGif(gif)
+    }
+
+
+    suspend fun getAllGif() = withContext(Dispatchers.IO) {
+        val likeList: MutableList<GiphyClass> = localModel.getAllGif()
+
+        withContext(Dispatchers.Default) {
+            VM.vm.likeList.value?.clear()
+            VM.vm.likeList.value?.addAll(likeList)
+        }
+
+        withContext(Dispatchers.Main) {
+            VM.vm.likeList.value = VM.vm.likeList.value
+        }
+    }
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+    suspend fun checkLikeGifs() = withContext(Dispatchers.IO) {
+        getAllGif()
+        withContext(Dispatchers.Main) {
+            VM.vm.tredList.value = VM.vm.tredList.value
+        }
     }
 }

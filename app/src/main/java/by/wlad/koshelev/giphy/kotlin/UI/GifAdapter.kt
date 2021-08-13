@@ -35,13 +35,16 @@ class GifAdapter(
         holder.likeImg.setOnClickListener {
             val a: GiphyClass = arr[holder.adapterPosition]
             MainScope().launch {
-                if (VM.vm.findGif(a.id)) {
+                if (VM.vm.isHaveGif(a.id)) {
                     VM.vm.deleteGif(a)
                     holder.likeImg.setImageDrawable(app.resources.getDrawable(R.drawable.ic_not_like))
                 } else {
-                    VM.vm.addGif(a)
+                    VM.vm.saveGif(a)
                     holder.likeImg.setImageDrawable(app.resources.getDrawable(R.drawable.ic_like))
                 }
+//                VM.vm.tredList.value = VM.vm.tredList.value
+//                VM.vm.getAllGif()
+                VM.vm.checkLikeGifs()
             }
 
         }
@@ -57,11 +60,14 @@ class GifAdapter(
         val a: GiphyClass = arr[position]
 
         // сама гифка
-        Glide.with(app).load(a.myUrl).into(holder.img)
+        MainScope().launch {
+            Glide.with(app).load(a.myUrl).into(holder.img)
+        }
+
 
         // лайк или нет?
         MainScope().launch {
-            if (VM.vm.findGif(a.id)) {
+            if (VM.vm.isHaveGif(a.id)) {
                 holder.likeImg.setImageDrawable(app.resources.getDrawable(R.drawable.ic_like))
             }
         }

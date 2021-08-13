@@ -15,21 +15,30 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
     private val repository: Repository = Repository()
 
     var tredList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf())
+    var likeList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf())
 
 
     suspend fun getTrending() = withContext(Dispatchers.IO) {
         repository.getTrending()
     }
 
-    suspend fun findGif(id: String): Boolean = withContext(Dispatchers.IO) {
-        repository.findGif(id)
+    suspend fun isHaveGif(id: String): Boolean = withContext(Dispatchers.IO) {
+        repository.isHaveGif(id)
     }
 
-    suspend fun addGif(gif: GiphyClass) = withContext(Dispatchers.IO) {
-        repository.addGif(gif)
+    suspend fun saveGif(gif: GiphyClass) = withContext(Dispatchers.IO) {
+        repository.saveGif(gif)
     }
 
     suspend fun deleteGif(gif: GiphyClass) = withContext(Dispatchers.IO) {
         repository.deleteGif(gif)
+    }
+
+    suspend fun getAllGif() = withContext(Dispatchers.IO) {
+        repository.getAllGif()
+    }
+
+    suspend fun checkLikeGifs() = withContext(Dispatchers.Main) {
+        repository.checkLikeGifs()
     }
 }

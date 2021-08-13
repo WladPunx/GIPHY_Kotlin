@@ -68,6 +68,9 @@ interface GiphiDAO {
     @Query("select * from gyphi_table where id like :id ")
     suspend fun findGif(id: String): MutableList<GiphyClass>
 
+    @Query("select * from gyphi_table")
+    suspend fun getAllGif(): MutableList<GiphyClass>
+
 }
 
 
