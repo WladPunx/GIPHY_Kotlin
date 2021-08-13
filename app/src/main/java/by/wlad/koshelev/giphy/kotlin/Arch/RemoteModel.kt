@@ -20,5 +20,18 @@ class RemoteModel {
         }
     }
 
+    /**
+     * поиск гиф
+     */
+    suspend fun searchGif(text: String): MutableList<GiphyClass> = withContext(Dispatchers.IO) {
+        try {
+            val req: MutableList<GiphyClass> = ApiGiphy.create().searchGif(text).data as MutableList<GiphyClass>
+            req.map { it.inz() }
+            return@withContext req
+        } catch (ex: Exception) {
+            return@withContext mutableListOf()
+        }
+    }
+
 
 }

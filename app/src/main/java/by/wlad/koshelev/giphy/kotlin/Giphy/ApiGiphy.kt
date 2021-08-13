@@ -17,18 +17,19 @@ interface ApiGiphy {
     suspend fun getTrending(
         @Query("limit") limit: Int = 10,
         @Query("api_key") key: String = apiKey
-    ): GiphyApiTrending
+    ): GiphyApiList
 
     @GET("random")
     suspend fun getRandom(
         @Query("api_key") key: String = apiKey
-    ): GiphyApiRandom
+    ): GiphyApiObject
 
     @GET("search")
-    suspend fun getSearch(
+    suspend fun searchGif(
         @Query("q") text: String,
+        @Query("limit") limit: Int = 10,
         @Query("api_key") key: String = apiKey
-    ): GiphyApiTrending
+    ): GiphyApiList
 
 
     companion object {

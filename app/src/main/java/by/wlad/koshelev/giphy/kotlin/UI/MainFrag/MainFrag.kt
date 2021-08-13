@@ -12,6 +12,8 @@ import by.wlad.koshelev.giphy.kotlin.Arch.VM
 import by.wlad.koshelev.giphy.kotlin.R
 import by.wlad.koshelev.giphy.kotlin.UI.GifAdapter
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 
 class MainFrag : Fragment() {
@@ -30,16 +32,49 @@ class MainFrag : Fragment() {
 
 
         /**
-         * ПОПУЛЯРНЫЙ слушатель
+         * кнопка ПОПУЛЯРНЫЕ
          */
-        VM.vm.tredList.observe(viewLifecycleOwner, Observer {
+        trend_popular_MainFrag.setOnClickListener {
+            MainScope().launch {
+                VM.vm.getTrending()
+                VM.vm.statusForGifList.value = getString(R.string.trend)
+            }
+        }
+
+
+        /**
+         * кнопка ПОИСК
+         */
+        findGif_btn_MainFrag.setOnClickListener {
+            val text: String = search_txt_MainFrag.text.toString()
+            if (text != null && text != "") {
+                MainScope().launch {
+                    VM.vm.searchGif(text)
+                    VM.vm.statusForGifList.value = "${getString(R.string.search)} : ${text}"
+                }
+            }
+        }
+
+
+        /**
+         * статус списка гифок
+         */
+        VM.vm.statusForGifList.observe(viewLifecycleOwner, Observer {
+            statusGifList_txt_MAinFrag.setText(it)
+        })
+
+
+        /**
+         * слушатель на ИНТЕРНЕТ гифки
+         */
+        VM.vm.gifList.observe(viewLifecycleOwner, Observer {
             tredRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 3)
             tredRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
         })
 
 
         /**
-         * ЛЮБИМЫЕ гифки
+         * ЛЮБИМЫЕ гифки (из БД)
          */
         VM.vm.likeList.observe(viewLifecycleOwner, Observer {
             likeRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 3)

@@ -29,8 +29,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <EditText
+                android:id="@+id/search_txt_MainFrag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/findGif_btn_MainFrag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/trend_popular_MainFrag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trend"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/random_btn_MainFrag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/random"
+                android:textSize="18sp" />
+
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/statusGifList_txt_MAinFrag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/trend" />

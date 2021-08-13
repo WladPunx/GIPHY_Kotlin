@@ -3,7 +3,7 @@ package by.wlad.koshelev.giphy.kotlin.Giphy
 
 import com.google.gson.annotations.SerializedName
 
-data class GiphyApiTrending(
+data class GiphyApiList(
     @SerializedName("data")
     var `data`: List<GiphyClass>
 //    @SerializedName("meta")
@@ -13,7 +13,7 @@ data class GiphyApiTrending(
 )
 
 
-data class GiphyApiRandom(
+data class GiphyApiObject(
     @SerializedName("data")
     var `data`: GiphyClass
 )

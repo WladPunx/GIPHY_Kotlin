@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import by.wlad.koshelev.giphy.kotlin.Giphy.GiphyClass
+import by.wlad.koshelev.giphy.kotlin.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -14,8 +15,9 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
 
     private val repository: Repository = Repository()
 
-    var tredList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf())
+    var gifList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf())
     var likeList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf())
+    var statusForGifList: MutableLiveData<String> = MutableLiveData(apl.getString(R.string.trend))
 
 
     suspend fun getTrending() = withContext(Dispatchers.IO) {
@@ -40,5 +42,9 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
 
     suspend fun checkLikeGifs() = withContext(Dispatchers.Main) {
         repository.checkLikeGifs()
+    }
+
+    suspend fun searchGif(text: String) = withContext(Dispatchers.IO) {
+        repository.searchGif(text)
     }
 }

@@ -16,14 +16,27 @@ class Repository {
         val list: MutableList<GiphyClass> = remoteModel.getTrending()
 
         withContext(Dispatchers.Default) {
-            VM.vm.tredList.value?.clear()
-            VM.vm.tredList.value?.addAll(list)
+            VM.vm.gifList.value?.clear()
+            VM.vm.gifList.value?.addAll(list)
         }
 
         withContext(Dispatchers.Main) {
-            VM.vm.tredList.value = VM.vm.tredList.value
+            VM.vm.gifList.value = VM.vm.gifList.value
+        }
+    }
+
+
+    suspend fun searchGif(text: String) = withContext(Dispatchers.IO) {
+        val list: MutableList<GiphyClass> = remoteModel.searchGif(text)
+
+        withContext(Dispatchers.Default) {
+            VM.vm.gifList.value?.clear()
+            VM.vm.gifList.value?.addAll(list)
         }
 
+        withContext(Dispatchers.Main) {
+            VM.vm.gifList.value = VM.vm.gifList.value
+        }
     }
 
 
@@ -79,7 +92,9 @@ class Repository {
     suspend fun checkLikeGifs() = withContext(Dispatchers.IO) {
         getAllGif()
         withContext(Dispatchers.Main) {
-            VM.vm.tredList.value = VM.vm.tredList.value
+            VM.vm.gifList.value = VM.vm.gifList.value
         }
     }
+
+
 }
