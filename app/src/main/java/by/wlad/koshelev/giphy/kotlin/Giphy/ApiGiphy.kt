@@ -8,6 +8,7 @@ import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 const val apiKey: String = "xYppPgqo8q3N0aZ6LeaFbn4QhwO9tyL0"
+const val myLimit: Int = 10
 
 interface ApiGiphy {
     // https://api.giphy.com/v1/gifs/trending?api_key=xYppPgqo8q3N0aZ6LeaFbn4QhwO9tyL0
@@ -15,19 +16,20 @@ interface ApiGiphy {
 
     @GET("trending")
     suspend fun getTrending(
-        @Query("limit") limit: Int = 10,
+        @Query("limit") limit: Int = myLimit,
         @Query("api_key") key: String = apiKey
     ): GiphyApiList
 
     @GET("random")
     suspend fun getRandom(
+        @Query("limit") limit: Int = myLimit,
         @Query("api_key") key: String = apiKey
     ): GiphyApiObject
 
     @GET("search")
     suspend fun searchGif(
         @Query("q") text: String,
-        @Query("limit") limit: Int = 10,
+        @Query("limit") limit: Int = myLimit,
         @Query("api_key") key: String = apiKey
     ): GiphyApiList
 

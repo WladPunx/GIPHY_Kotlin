@@ -55,6 +55,16 @@ class MainFrag : Fragment() {
             }
         }
 
+        /**
+         * случайная ГИФка
+         */
+        random_btn_MainFrag.setOnClickListener {
+            MainScope().launch {
+                VM.vm.getRandomGif()
+                VM.vm.statusForGifList.value = "${getString(R.string.random)}"
+            }
+        }
+
 
         /**
          * статус списка гифок

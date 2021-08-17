@@ -60,9 +60,8 @@ class GifAdapter(
         val a: GiphyClass = arr[position]
 
         // сама гифка
-        MainScope().launch {
-            Glide.with(app).load(a.myUrl).into(holder.img)
-        }
+
+        Glide.with(app).load(a.myUrl).into(holder.img)
 
 
         // лайк или нет?

@@ -33,5 +33,15 @@ class RemoteModel {
         }
     }
 
+    suspend fun getRandomGif(): GiphyClass? = withContext(Dispatchers.IO) {
+        try {
+            val req: GiphyClass = ApiGiphy.create().getRandom().data
+            req.inz()
+            return@withContext req
+        } catch (ex: Exception) {
+            return@withContext null
+        }
+    }
+
 
 }

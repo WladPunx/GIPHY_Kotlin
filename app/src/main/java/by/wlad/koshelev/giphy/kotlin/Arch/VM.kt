@@ -13,7 +13,7 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
         lateinit var vm: VM
     }
 
-    private val repository: Repository = Repository()
+    private val repository: Repository = Repository(apl)
 
     var gifList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf())
     var likeList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf())
@@ -46,5 +46,9 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
 
     suspend fun searchGif(text: String) = withContext(Dispatchers.IO) {
         repository.searchGif(text)
+    }
+
+    suspend fun getRandomGif() = withContext(Dispatchers.IO) {
+        repository.getRandomGif()
     }
 }

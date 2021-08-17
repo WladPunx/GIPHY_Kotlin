@@ -1,10 +1,14 @@
 package by.wlad.koshelev.giphy.kotlin.Arch
 
+import android.app.Application
 import by.wlad.koshelev.giphy.kotlin.Giphy.GiphyClass
+import by.wlad.koshelev.giphy.kotlin.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class Repository {
+class Repository(
+    private val apl: Application
+) {
     private val localModel: LocalModel = LocalModel()
     private val remoteModel: RemoteModel = RemoteModel()
 
@@ -26,6 +30,9 @@ class Repository {
     }
 
 
+    /**
+     * поиск Гиф
+     */
     suspend fun searchGif(text: String) = withContext(Dispatchers.IO) {
         val list: MutableList<GiphyClass> = remoteModel.searchGif(text)
 
@@ -36,6 +43,22 @@ class Repository {
 
         withContext(Dispatchers.Main) {
             VM.vm.gifList.value = VM.vm.gifList.value
+        }
+    }
+
+    /**
+     * случайная гиф
+     */
+    suspend fun getRandomGif() = withContext(Dispatchers.IO) {
+        val gif: GiphyClass? = remoteModel.getRandomGif()
+        if (gif != null) {
+
+            withContext(Dispatchers.Main) {
+                if (VM.vm.statusForGifList.value != apl.getString(R.string.random)) VM.vm.gifList.value?.clear()
+
+                VM.vm.gifList.value?.add(0, gif)
+                VM.vm.gifList.value = VM.vm.gifList.value
+            }
         }
     }
 
@@ -62,6 +85,9 @@ class Repository {
     }
 
 
+    /**
+     * очистить БД
+     */
     suspend fun getAllGif() = withContext(Dispatchers.IO) {
         val likeList: MutableList<GiphyClass> = localModel.getAllGif()
 
