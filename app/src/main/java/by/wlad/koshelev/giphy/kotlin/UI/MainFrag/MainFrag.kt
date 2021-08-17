@@ -77,8 +77,8 @@ class MainFrag : Fragment() {
         /**
          * слушатель на ИНТЕРНЕТ гифки
          */
-        VM.vm.gifList.observe(viewLifecycleOwner, Observer {
-            tredRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 3)
+        VM.vm.viewGifList.observe(viewLifecycleOwner, Observer {
+            tredRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 2)
             tredRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
         })
 
@@ -89,6 +89,31 @@ class MainFrag : Fragment() {
         VM.vm.likeList.observe(viewLifecycleOwner, Observer {
             likeRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 3)
             likeRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
+        })
+
+
+        /**
+         * управление сеткой
+         */
+
+        next_btn_MainFrag.setOnClickListener {
+            VM.vm.numberList.value = VM.vm.numberList.value?.plus(1)
+            VM.vm.setViewGifList()
+        }
+
+        back_btn_MainFrag.setOnClickListener {
+            VM.vm.numberList.value = VM.vm.numberList.value?.minus(1)
+            VM.vm.setViewGifList()
+        }
+
+        VM.vm.numberList.observe(viewLifecycleOwner, Observer {
+            numberList_txt_MainFrag.setText("${it}")
+
+            if (it == VM.vm.maxNumberList) next_btn_MainFrag.isEnabled = false
+            else next_btn_MainFrag.isEnabled = true
+
+            if (it == 1) back_btn_MainFrag.isEnabled = false
+            else back_btn_MainFrag.isEnabled = true
         })
 
     }

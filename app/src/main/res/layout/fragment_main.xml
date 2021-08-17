@@ -69,6 +69,34 @@
                 android:layout_height="wrap_content" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/back_btn_MainFrag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/back" />
+
+                <TextView
+                    android:id="@+id/numberList_txt_MainFrag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="1" />
+
+                <Button
+                    android:id="@+id/next_btn_MainFrag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/next" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/FOOTER"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

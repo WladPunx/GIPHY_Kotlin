@@ -8,7 +8,7 @@ import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 const val apiKey: String = "xYppPgqo8q3N0aZ6LeaFbn4QhwO9tyL0"
-const val myLimit: Int = 10
+const val myLimit: Int = 60
 
 interface ApiGiphy {
     // https://api.giphy.com/v1/gifs/trending?api_key=xYppPgqo8q3N0aZ6LeaFbn4QhwO9tyL0

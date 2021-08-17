@@ -21,3 +21,4 @@ local.properties
 /.idea/vcs.xml
 /.idea/codeStyles/codeStyleConfig.xml
 /.idea/codeStyles/Project.xml
+/app/release/output-metadata.json

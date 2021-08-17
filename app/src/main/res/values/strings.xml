@@ -6,4 +6,6 @@
     <string name="urLike">Вам понравились</string>
     <string name="search">Поиск</string>
     <string name="random">Случайная</string>
+    <string name="next">Далее</string>
+    <string name="back">Назад</string>
 </resources>
