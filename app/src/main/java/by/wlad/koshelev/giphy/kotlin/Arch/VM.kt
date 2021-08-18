@@ -16,14 +16,13 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
     private val repository: Repository = Repository(apl)
 
     var gifList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf()) // полный список ГИФ
-    var viewGifList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf()) // список только для ОТОБРАЖЕНИЯ (сетка)
+
 
     var likeList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf()) // список из БД
 
     var statusForGifList: MutableLiveData<String> = MutableLiveData(apl.getString(R.string.trend)) // статус
 
-    var numberList: MutableLiveData<Int> = MutableLiveData(1) // номер страницы (по умолчанию ==1)
-    var maxNumberList: Int = 1
+
 
 
     suspend fun getTrending() = withContext(Dispatchers.IO) {
@@ -58,7 +57,5 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
         repository.getRandomGif()
     }
 
-    fun setViewGifList() {
-        repository.setViewGifList(numberList.value!!)
-    }
+
 }

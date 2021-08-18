@@ -26,7 +26,7 @@ class Repository(
 
         withContext(Dispatchers.Main) {
             VM.vm.gifList.value = VM.vm.gifList.value
-            setNewViewGifList()
+
         }
     }
 
@@ -44,7 +44,7 @@ class Repository(
 
         withContext(Dispatchers.Main) {
             VM.vm.gifList.value = VM.vm.gifList.value
-            setNewViewGifList()
+
         }
     }
 
@@ -60,7 +60,7 @@ class Repository(
 
                 VM.vm.gifList.value?.add(0, gif)
                 VM.vm.gifList.value = VM.vm.gifList.value
-                setNewViewGifList()
+
             }
         }
     }
@@ -124,45 +124,5 @@ class Repository(
             VM.vm.gifList.value = VM.vm.gifList.value
         }
     }
-
-
-    /**
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *  МЕТОДЫ ДЛЯ СЕТКИ
-     */
-
-
-    private fun setNewViewGifList() {
-        calcMaxNumber()
-        VM.vm.numberList.value = 1
-        setViewGifList(1)
-    }
-
-    fun setViewGifList(size: Int) {
-        VM.vm.viewGifList.value?.clear()
-        val min: Int = (size - 1) * 10
-        val max: Int = min + 10
-        for (i in min until max) {
-            try {
-                val a: GiphyClass = VM.vm.gifList.value?.get(i)!!
-                VM.vm.viewGifList.value?.add(a)
-            } catch (ex: Exception) {
-            }
-        }
-        VM.vm.viewGifList.value = VM.vm.viewGifList.value
-    }
-
-    private fun calcMaxNumber() {
-        var r: Int = VM.vm.gifList.value?.size!! / 10
-        if (VM.vm.gifList.value?.size!! % 10 != 0) r++
-        VM.vm.maxNumberList = r
-    }
-
 
 }

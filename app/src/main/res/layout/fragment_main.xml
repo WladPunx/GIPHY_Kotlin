@@ -25,7 +25,7 @@
                 android:text="@string/urLike" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/likeRecycler_MainFrag"
+                android:id="@+id/likeGifRecycler_MainFrag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -64,7 +64,7 @@
                 android:text="@string/trend" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tredRecycler_MainFrag"
+                android:id="@+id/inetGifRecycler_MainFrag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

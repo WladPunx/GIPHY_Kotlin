@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import by.wlad.koshelev.giphy.kotlin.Arch.VM
+import by.wlad.koshelev.giphy.kotlin.Giphy.GiphyClass
 import by.wlad.koshelev.giphy.kotlin.R
 import by.wlad.koshelev.giphy.kotlin.UI.GifAdapter
+import by.wlad.koshelev.giphy.kotlin.UI.ListConvertorForView
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -18,6 +20,7 @@ import kotlinx.coroutines.launch
 
 class MainFrag : Fragment() {
 
+    private val listConvertor: ListConvertorForView<GiphyClass> = ListConvertorForView()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +70,14 @@ class MainFrag : Fragment() {
 
 
         /**
+         * ЛЮБИМЫЕ гифки (из БД)
+         */
+        VM.vm.likeList.observe(viewLifecycleOwner, Observer {
+            likeGifRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 3)
+            likeGifRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
+        })
+
+        /**
          * статус списка гифок
          */
         VM.vm.statusForGifList.observe(viewLifecycleOwner, Observer {
@@ -77,18 +88,16 @@ class MainFrag : Fragment() {
         /**
          * слушатель на ИНТЕРНЕТ гифки
          */
-        VM.vm.viewGifList.observe(viewLifecycleOwner, Observer {
-            tredRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 2)
-            tredRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
+        // когда придет весь списко из АПИшки
+        // мы его загоним в наш конвертов
+        VM.vm.gifList.observe(viewLifecycleOwner, Observer {
+            listConvertor.new(it, 10)
         })
 
-
-        /**
-         * ЛЮБИМЫЕ гифки (из БД)
-         */
-        VM.vm.likeList.observe(viewLifecycleOwner, Observer {
-            likeRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 3)
-            likeRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
+        // а когда данные в нашем конверторе меняются - мы выводим их на экран
+        listConvertor.output.observe(viewLifecycleOwner, Observer {
+            inetGifRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 2)
+            inetGifRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
         })
 
 
@@ -97,19 +106,17 @@ class MainFrag : Fragment() {
          */
 
         next_btn_MainFrag.setOnClickListener {
-            VM.vm.numberList.value = VM.vm.numberList.value?.plus(1)
-            VM.vm.setViewGifList()
+            listConvertor.setNumber(listConvertor.number.value!! + 1)
         }
 
         back_btn_MainFrag.setOnClickListener {
-            VM.vm.numberList.value = VM.vm.numberList.value?.minus(1)
-            VM.vm.setViewGifList()
+            listConvertor.setNumber(listConvertor.number.value!! - 1)
         }
 
-        VM.vm.numberList.observe(viewLifecycleOwner, Observer {
+        listConvertor.number.observe(viewLifecycleOwner, Observer {
             numberList_txt_MainFrag.setText("${it}")
 
-            if (it == VM.vm.maxNumberList) next_btn_MainFrag.isEnabled = false
+            if (it == listConvertor.maxNumber) next_btn_MainFrag.isEnabled = false
             else next_btn_MainFrag.isEnabled = true
 
             if (it == 1) back_btn_MainFrag.isEnabled = false

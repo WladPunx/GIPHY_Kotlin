@@ -33,6 +33,9 @@ class RemoteModel {
         }
     }
 
+    /**
+     * случайная гиф
+     */
     suspend fun getRandomGif(): GiphyClass? = withContext(Dispatchers.IO) {
         try {
             val req: GiphyClass = ApiGiphy.create().getRandom().data
