@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -14,8 +15,10 @@ import by.wlad.koshelev.giphy.kotlin.Arch.VM
 import by.wlad.koshelev.giphy.kotlin.Giphy.GiphyClass
 import by.wlad.koshelev.giphy.kotlin.R
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+
 
 class GifAdapter(
     val app: AppCompatActivity,
@@ -34,9 +37,9 @@ class GifAdapter(
         val holder = MyHolder(itemView)
 
         /**
-         * клик по лайку
+         * обычнык клик на итем
          */
-        holder.likeImg.setOnClickListener {
+        holder.itemView.setOnClickListener {
             val a: GiphyClass = arr[holder.adapterPosition]
             MainScope().launch {
                 if (VM.vm.isHaveGif(a.id)) {
@@ -46,25 +49,26 @@ class GifAdapter(
                     VM.vm.saveGif(a)
                     holder.likeImg.setImageDrawable(app.resources.getDrawable(R.drawable.ic_like))
                 }
-//                VM.vm.tredList.value = VM.vm.tredList.value
-//                VM.vm.getAllGif()
                 VM.vm.checkLikeGifs()
             }
-        }
-        //нажатие на саму КАРТИНКУ (не на все View) имитирует нажатие на лайк
-        holder.img.setOnClickListener {
-            holder.likeImg.performClick()
         }
 
 
         /**
          * долго нажатие для копирования ссылки на гифку
          */
-        holder.img.setOnLongClickListener {
+        holder.itemView.setOnLongClickListener {
+            // копирование в буфер
             val clipboardManager = app.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("myUrl", arr[holder.adapterPosition].myUrl)
             clipboardManager.setPrimaryClip(clipData)
-            Toast.makeText(app, app.getString(R.string.copy), Toast.LENGTH_SHORT).show()
+
+            // измененный Тост
+            val tst = Toast.makeText(app, app.getString(R.string.copy), Toast.LENGTH_SHORT)
+            val messageTextView = (tst.getView() as ViewGroup).getChildAt(0) as TextView
+            messageTextView.textSize = 20f
+            messageTextView.setTextColor(app.resources.getColor(R.color.likeColor))
+            tst.show()
             true
         }
 
@@ -82,8 +86,9 @@ class GifAdapter(
         val a: GiphyClass = arr[position]
 
         // сама гифка
-
-        Glide.with(app).load(a.myUrl).into(holder.img)
+        val requestOptions = RequestOptions()
+            .placeholder(R.drawable.no_img)
+        Glide.with(app).load(a.myUrl).apply(requestOptions).into(holder.img)
 
 
         // лайк или нет?

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,24 +21,38 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/urLike" />
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/urLike"
+                android:textAllCaps="true"
+                android:textColor="@color/likeRecyclerBackground"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/likeGifRecycler_MainFrag"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/likeRecyclerBackground" />
 
             <EditText
                 android:id="@+id/search_txt_MainFrag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:ems="10"
+                android:gravity="center"
+                android:hint="@string/search"
                 android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/findGif_btn_MainFrag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:text="@string/search"
                 android:textSize="18sp" />
 
@@ -47,6 +60,10 @@
                 android:id="@+id/trend_popular_MainFrag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:text="@string/trend"
                 android:textSize="18sp" />
 
@@ -54,6 +71,10 @@
                 android:id="@+id/random_btn_MainFrag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:text="@string/random"
                 android:textSize="18sp" />
 
@@ -61,24 +82,37 @@
                 android:id="@+id/statusGifList_txt_MAinFrag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/trend" />
+                android:layout_marginTop="20dp"
+                android:background="@color/buttonOff"
+                android:gravity="center"
+                android:text="@string/trend"
+                android:textAllCaps="true"
+                android:textColor="@color/buttonOn"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/inetGifRecycler_MainFrag"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/back_btn_MainFrag"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/back" />
+                    android:background="@drawable/navigation_button_style"
+                    android:text="@string/back"
+                    android:textColor="@drawable/navigation_button_text" />
 
                 <TextView
                     android:id="@+id/numberList_txt_MainFrag"
@@ -86,14 +120,19 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="1" />
+                    android:text="1"
+                    android:textColor="@color/buttonOn"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/next_btn_MainFrag"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/next" />
+                    android:background="@drawable/navigation_button_style"
+                    android:text="@string/next"
+                    android:textColor="@drawable/navigation_button_text" />
             </LinearLayout>
 
             <LinearLayout

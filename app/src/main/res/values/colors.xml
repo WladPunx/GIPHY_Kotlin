@@ -11,4 +11,16 @@
 
 
     <color name="likeColor">#ED3F3F</color>
+
+    <color name="cardViewColor">#6C17A1</color>
+    <color name="inCardViewColor">#FFFFFF</color>
+
+    <color name="buttonOn">#6C17A1</color>
+    <color name="buttonOff">#666C17A1</color>
+    <color name="buttonPress">#FF00FB</color>
+    <color name="buttonTextOn">#FFFFFF</color>
+    <color name="buttonTextOff">#66FFFFFF</color>
+    <color name="buttonTextPress">@color/buttonOn</color>
+
+    <color name="likeRecyclerBackground">#80FF0900</color>
 </resources>
