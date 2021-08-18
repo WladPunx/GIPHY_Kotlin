@@ -8,4 +8,5 @@
     <string name="random">Случайная</string>
     <string name="next">Далее</string>
     <string name="back">Назад</string>
+    <string name="copy">Ссылка скопирована</string>
 </resources>

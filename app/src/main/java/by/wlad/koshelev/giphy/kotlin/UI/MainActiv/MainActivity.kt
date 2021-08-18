@@ -1,6 +1,9 @@
 package by.wlad.koshelev.giphy.kotlin.UI.MainActiv
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import by.wlad.koshelev.giphy.kotlin.Arch.VM
@@ -32,4 +35,11 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+}
+
+
+// метод чтобы прятать клавиатуру
+fun EditText.hideKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
 }

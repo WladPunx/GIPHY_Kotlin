@@ -13,6 +13,7 @@ import by.wlad.koshelev.giphy.kotlin.Giphy.GiphyClass
 import by.wlad.koshelev.giphy.kotlin.R
 import by.wlad.koshelev.giphy.kotlin.UI.GifAdapter
 import by.wlad.koshelev.giphy.kotlin.UI.ListConvertorForView
+import by.wlad.koshelev.giphy.kotlin.UI.MainActiv.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -51,6 +52,9 @@ class MainFrag : Fragment() {
         findGif_btn_MainFrag.setOnClickListener {
             val text: String = search_txt_MainFrag.text.toString()
             if (text != null && text != "") {
+
+                search_txt_MainFrag.hideKeyboard() // прячем клаву
+
                 MainScope().launch {
                     VM.vm.searchGif(text)
                     VM.vm.statusForGifList.value = "${getString(R.string.search)} : ${text}"

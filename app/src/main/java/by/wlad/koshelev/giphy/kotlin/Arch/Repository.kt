@@ -89,7 +89,7 @@ class Repository(
 
 
     /**
-     * очистить БД
+     * все гиф из БД
      */
     suspend fun getAllGif() = withContext(Dispatchers.IO) {
         val likeList: MutableList<GiphyClass> = localModel.getAllGif()
@@ -121,7 +121,7 @@ class Repository(
     suspend fun checkLikeGifs() = withContext(Dispatchers.IO) {
         getAllGif()
         withContext(Dispatchers.Main) {
-            VM.vm.gifList.value = VM.vm.gifList.value
+//            VM.vm.gifList.value = VM.vm.gifList.value
         }
     }
 

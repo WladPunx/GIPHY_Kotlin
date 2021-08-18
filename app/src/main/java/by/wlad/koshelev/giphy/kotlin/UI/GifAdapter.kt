@@ -1,9 +1,13 @@
 package by.wlad.koshelev.giphy.kotlin.UI
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import by.wlad.koshelev.giphy.kotlin.Arch.VM
@@ -46,8 +50,26 @@ class GifAdapter(
 //                VM.vm.getAllGif()
                 VM.vm.checkLikeGifs()
             }
-
         }
+        //нажатие на саму КАРТИНКУ (не на все View) имитирует нажатие на лайк
+        holder.img.setOnClickListener {
+            holder.likeImg.performClick()
+        }
+
+
+        /**
+         * долго нажатие для копирования ссылки на гифку
+         */
+        holder.img.setOnLongClickListener {
+            val clipboardManager = app.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("myUrl", arr[holder.adapterPosition].myUrl)
+            clipboardManager.setPrimaryClip(clipData)
+            Toast.makeText(app, app.getString(R.string.copy), Toast.LENGTH_SHORT).show()
+            true
+        }
+
+
+
 
         return holder
     }
