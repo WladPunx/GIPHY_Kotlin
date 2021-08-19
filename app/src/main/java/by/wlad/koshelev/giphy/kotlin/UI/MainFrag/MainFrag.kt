@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import by.wlad.koshelev.giphy.kotlin.Arch.VM
 import by.wlad.koshelev.giphy.kotlin.Giphy.GiphyClass
 import by.wlad.koshelev.giphy.kotlin.R
-import by.wlad.koshelev.giphy.kotlin.UI.GifAdapter
+import by.wlad.koshelev.giphy.kotlin.UI.GifAdapter_J
 import by.wlad.koshelev.giphy.kotlin.UI.ListConvertorForView
 import by.wlad.koshelev.giphy.kotlin.UI.MainActiv.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -78,7 +78,7 @@ class MainFrag : Fragment() {
          */
         VM.vm.likeList.observe(viewLifecycleOwner, Observer {
             likeGifRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 3)
-            likeGifRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
+            likeGifRecycler_MainFrag.adapter = GifAdapter_J(activity as AppCompatActivity, it)
         })
 
         /**
@@ -101,7 +101,7 @@ class MainFrag : Fragment() {
         // а когда данные в нашем конверторе меняются - мы выводим их на экран
         listConvertor.output.observe(viewLifecycleOwner, Observer {
             inetGifRecycler_MainFrag.layoutManager = GridLayoutManager(activity, 2)
-            inetGifRecycler_MainFrag.adapter = GifAdapter(activity as AppCompatActivity, it)
+            inetGifRecycler_MainFrag.adapter = GifAdapter_J(activity as AppCompatActivity, it)
         })
 
 

@@ -60,16 +60,16 @@ data class GiphyClass(
 interface GiphiDAO {
 
     @Insert
-    suspend fun addGif(gif: GiphyClass)
+    fun addGif(gif: GiphyClass)
 
     @Delete
-    suspend fun deleteGif(gif: GiphyClass)
+    fun deleteGif(gif: GiphyClass)
 
     @Query("select * from gyphi_table where id like :id ")
-    suspend fun findGif(id: String): MutableList<GiphyClass>
+    fun findGif(id: String): MutableList<GiphyClass>
 
     @Query("select * from gyphi_table")
-    suspend fun getAllGif(): MutableList<GiphyClass>
+    fun getAllGif(): MutableList<GiphyClass>
 
 }
 

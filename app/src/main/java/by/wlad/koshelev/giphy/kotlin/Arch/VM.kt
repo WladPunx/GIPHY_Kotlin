@@ -13,6 +13,7 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
         lateinit var vm: VM
     }
 
+
     private val repository: Repository = Repository(apl)
 
     var gifList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf()) // полный список ГИФ
@@ -29,8 +30,8 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
         repository.getTrending()
     }
 
-    suspend fun isHaveGif(id: String): Boolean = withContext(Dispatchers.IO) {
-        repository.isHaveGif(id)
+    fun isHaveGif(id: String): Boolean {
+        return repository.isHaveGif(id)
     }
 
     suspend fun saveGif(gif: GiphyClass) = withContext(Dispatchers.IO) {

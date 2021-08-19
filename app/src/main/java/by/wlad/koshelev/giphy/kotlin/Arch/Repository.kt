@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 class Repository(
     private val apl: Application
 ) {
-    private val localModel: LocalModel = LocalModel()
+    private val localModel: LocalModel_J = LocalModel_J()
     private val remoteModel: RemoteModel = RemoteModel()
 
 
@@ -69,8 +69,8 @@ class Repository(
     /**
      * есть ли эта ГИФка в БД? возвращает БУЛЕАНТ!!
      */
-    suspend fun isHaveGif(id: String): Boolean = withContext(Dispatchers.IO) {
-        localModel.isHaveGif(id)
+     fun isHaveGif(id: String): Boolean{
+        return localModel.isHaveGif(id)
     }
 
     /**
