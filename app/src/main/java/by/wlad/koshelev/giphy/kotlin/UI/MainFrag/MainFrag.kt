@@ -67,7 +67,7 @@ class MainFrag : Fragment() {
          */
         random_btn_MainFrag.setOnClickListener {
             MainScope().launch {
-                VM.vm.getRandomGif()
+                VM.vm.getRandomGif(4)
                 VM.vm.statusForGifList.value = "${getString(R.string.random)}"
             }
         }
@@ -120,11 +120,13 @@ class MainFrag : Fragment() {
         listConvertor.number.observe(viewLifecycleOwner, Observer {
             numberList_txt_MainFrag.setText("${it}")
 
-            if (it == listConvertor.maxNumber) next_btn_MainFrag.isEnabled = false
+            if (it >= listConvertor.maxNumber) next_btn_MainFrag.isEnabled = false
             else next_btn_MainFrag.isEnabled = true
 
-            if (it == 1) back_btn_MainFrag.isEnabled = false
+            if (it <= 1) back_btn_MainFrag.isEnabled = false
             else back_btn_MainFrag.isEnabled = true
+
+
         })
 
     }

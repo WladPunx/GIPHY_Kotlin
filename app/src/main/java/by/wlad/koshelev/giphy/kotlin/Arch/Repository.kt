@@ -18,16 +18,7 @@ class Repository(
      */
     suspend fun getTrending() = withContext(Dispatchers.IO) {
         val list: MutableList<GiphyClass> = remoteModel.getTrending()
-
-        withContext(Dispatchers.Default) {
-            VM.vm.gifList.value?.clear()
-            VM.vm.gifList.value?.addAll(list)
-        }
-
-        withContext(Dispatchers.Main) {
-            VM.vm.gifList.value = VM.vm.gifList.value
-
-        }
+        setGifList(list)
     }
 
 
@@ -36,34 +27,50 @@ class Repository(
      */
     suspend fun searchGif(text: String) = withContext(Dispatchers.IO) {
         val list: MutableList<GiphyClass> = remoteModel.searchGif(text)
+        setGifList(list)
+    }
 
-        withContext(Dispatchers.Default) {
-            VM.vm.gifList.value?.clear()
-            VM.vm.gifList.value?.addAll(list)
-        }
-
+    // метод для обновления списка ГИф
+    private suspend fun setGifList(list: MutableList<GiphyClass>) = withContext(Dispatchers.Default) {
+        VM.vm.gifList.value?.clear()
+        VM.vm.gifList.value?.addAll(list)
         withContext(Dispatchers.Main) {
             VM.vm.gifList.value = VM.vm.gifList.value
-
         }
     }
 
     /**
      * случайная гиф
      */
-    suspend fun getRandomGif() = withContext(Dispatchers.IO) {
-        val gif: GiphyClass? = remoteModel.getRandomGif()
-        if (gif != null) {
+    suspend fun getRandomGif(size: Int) = withContext(Dispatchers.Main) {
+        for (i in 0 until size) {
+            val gif: GiphyClass? = remoteModel.getRandomGif()
 
-            withContext(Dispatchers.Main) {
-                if (VM.vm.statusForGifList.value != apl.getString(R.string.random)) VM.vm.gifList.value?.clear()
-
-                VM.vm.gifList.value?.add(0, gif)
-                VM.vm.gifList.value = VM.vm.gifList.value
-
+            if (gif != null) {
+                withContext(Dispatchers.Main) {
+                    if (VM.vm.statusForGifList.value != apl.getString(R.string.random)) {
+                        VM.vm.gifList.value?.clear()
+                        VM.vm.statusForGifList.value = "${apl.getString(R.string.random)}"
+                    }
+                    VM.vm.gifList.value?.add(0, gif)
+                }
             }
         }
+        VM.vm.gifList.value = VM.vm.gifList.value
     }
+    /**
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */
 
 
     /**
@@ -107,14 +114,7 @@ class Repository(
     /**
      *
      *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
+
      *
      *
      */

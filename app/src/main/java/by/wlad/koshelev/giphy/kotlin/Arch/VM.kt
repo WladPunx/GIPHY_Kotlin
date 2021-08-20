@@ -16,10 +16,7 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
     private val repository: Repository = Repository(apl)
 
     var gifList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf()) // полный список ГИФ
-
-
     var likeList: MutableLiveData<MutableList<GiphyClass>> = MutableLiveData(mutableListOf()) // список из БД
-
     var statusForGifList: MutableLiveData<String> = MutableLiveData(apl.getString(R.string.trend)) // статус
 
 
@@ -53,8 +50,8 @@ class VM(private val apl: Application) : AndroidViewModel(apl) {
         repository.searchGif(text)
     }
 
-    suspend fun getRandomGif() = withContext(Dispatchers.IO) {
-        repository.getRandomGif()
+    suspend fun getRandomGif(size: Int) = withContext(Dispatchers.IO) {
+        repository.getRandomGif(size)
     }
 
 
